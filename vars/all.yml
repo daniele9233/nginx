@@ -1,0 +1,34 @@
+---
+# Variabili globali per la configurazione Nginx
+
+# Configurazione SSL
+nginx_server_name: "rancher.asl.taranto.it"
+nginx_ssl_cert_path: "/etc/nginx/cert/asl.taranto.it.cer"
+nginx_ssl_key_path: "/etc/nginx/cert/asl.taranto.it.key"
+
+# Upstream servers per Rancher
+rancher_servers_https:
+  - server: "10.109.0.131:443"
+    max_fails: 3
+    fail_timeout: "5s"
+
+rancher_ingress_https:
+  - server: "10.109.0.134:443"
+    max_fails: 3
+    fail_timeout: "5s"
+  - server: "10.109.0.141:443"
+    max_fails: 3
+    fail_timeout: "5s"
+
+# Configurazione Nginx
+nginx_user: "www-data"
+nginx_worker_processes: 2
+nginx_worker_rlimit_nofile: 40000
+nginx_client_max_body_size: "2G"
+
+# Path dei certificati
+nginx_cert_dir: "/etc/nginx/cert"
+
+# Path locali dei certificati (sulla macchina di controllo Ansible)
+local_ssl_cert_path: "files/asl.taranto.it.cer"
+local_ssl_key_path: "files/asl.taranto.it.key"

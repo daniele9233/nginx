@@ -1,0 +1,19 @@
+---
+- name: Install and configure Nginx
+  hosts: nginx_servers
+  become: yes
+  vars_files:
+    - vars/all.yml
+  
+  roles:
+    - nginx_install
+
+  post_tasks:
+    - name: Display completion message
+      debug:
+        msg: 
+          - "Nginx installation and configuration completed successfully!"
+          - "Server configured for: {{ nginx_server_name }}"
+          - "SSL Certificate: {{ nginx_ssl_cert_path }}"
+          - "SSL Key: {{ nginx_ssl_key_path }}"
+          - "Remember to copy your SSL certificates to {{ nginx_cert_dir }}/"
